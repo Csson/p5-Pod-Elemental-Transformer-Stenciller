@@ -18,6 +18,9 @@ $pod5->transform_node($doc);
 $stenciller->transform_node($doc);
 eq_or_diff $doc->as_pod_string, result(), 'correct';
 
+
+
+
 done_testing;
 
 sub result {
@@ -36,6 +39,7 @@ __END__
 =head1 NAME
 
 =head1 DESCRIPTION
+
 
 
 Intro text

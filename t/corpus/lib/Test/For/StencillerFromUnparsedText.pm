@@ -10,4 +10,4 @@ __END__
 
 =head1 DESCRIPTION
 
-:stenciller ToUnparsedText test-1.stencil { get_name => 'thing' }
+:stenciller ToUnparsedText 1-test.stencil { stencils => [0, 2] }
