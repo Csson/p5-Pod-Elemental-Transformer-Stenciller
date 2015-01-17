@@ -1,5 +1,5 @@
 {
-   "abstract" : "Injects text parsed with Stenciller::Plugin::ToUnparsed::Text",
+   "abstract" : "Injects content from textfiles transformed with Stenciller",
    "author" : [
       "Erik Carlsson <info@code301.com>"
    ],
@@ -37,11 +37,18 @@
       },
       "runtime" : {
          "requires" : {
+            "Moops" : "0.034",
+            "Moose" : "2.0000",
+            "Pod::Elemental::Transformer" : "0",
+            "Stenciller" : "0.1200",
             "perl" : "5.014000"
          }
       },
       "test" : {
          "requires" : {
+            "Pod::Elemental" : "0",
+            "Pod::Elemental::Transformer::Pod5" : "0",
+            "Test::Differences" : "0",
             "Test::More" : "0.96"
          }
       }
@@ -53,7 +60,17 @@
       }
    },
    "release_status" : "stable",
-   "resources" : {},
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller/issues"
+      },
+      "homepage" : "https://metacpan.org/release/Pod-Weaver-Plugin-Stenciller-FromUnparsedText",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller.git",
+         "web" : "https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller"
+      }
+   },
    "version" : "0.0001"
 }
 
