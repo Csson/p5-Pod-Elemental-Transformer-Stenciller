@@ -1,0 +1,66 @@
+
+Intro text
+goes  here
+
+== stencil { name => 'thing' }  ==
+
+thing
+
+here
+
+--input--
+
+    other thing
+
+--end input---------------------------------
+
+in between
+is three lines
+in a row
+
+------output--
+
+    expecting this
+
+--end output--
+
+A text after output
+
+
+== stencil { example => 0 } ==
+
+Header stencil 2
+
+--input--
+
+    Input stencil 2
+
+--end input--
+
+Between stencil 2
+
+--output--
+
+    Output stencil 2
+
+--end output--
+
+== stencil { example => 0 } ==
+
+Header stencil 3
+
+--input--
+
+    Input stencil 3
+
+--end input--
+
+Between stencil 3
+
+--output--
+
+    Output stencil 3
+
+--end output--
+
+After stencil 3

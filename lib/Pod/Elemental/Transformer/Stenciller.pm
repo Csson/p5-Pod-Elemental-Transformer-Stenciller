@@ -1,8 +1,10 @@
 use Stenciller::Standard;
+use strict;
+use warnings;
 
 # VERSION
 # PODCLASSNAME
-# ABSTRACT: Injects text parsed with Stenciller::Plugin::ToUnparsed::Text
+# ABSTRACT: Injects content from textfiles transformed with Stenciller
 use Stenciller;
 
 class Pod::Elemental::Transformer::Stenciller
@@ -17,12 +19,15 @@ using Moose
         isa => Dir,
         coerce => 1,
         required => 1,
+        documentation => 'Point to where the stencil files are.'
     );
     has settings => (
         isa => HashRef,
         traits => ['Hash'],
         default => sub { {} },
         documentation_default => '{ }',
+        documentation_order => 0,
+        documentation => 'If a plugin takes more attributes..',
         handles => {
             get_setting => 'get',
             set_setting => 'set',
@@ -33,6 +38,7 @@ using Moose
         isa => HashRef,
         default => sub { {} },
         documentation_default => '{ }',
+        documentation_order => 0,
         init_arg => undef,
         traits => ['Hash'],
         handles => {
@@ -40,14 +46,25 @@ using Moose
             set_plugin => 'set',
         },
     );
+    has stencillers => (
+        is => 'ro',
+        isa => HashRef,
+        traits => ['Hash'],
+        handles => {
+            get_stenciller_for_filename => 'get',
+            set_stenciller_for_filename => 'set',
+        },
+        documentation_order => 0,
+    );
     has loader => (
         is => 'ro',
         isa => Object,
         init_arg => undef,
         default => sub { Module::Loader->new },
+        documentation_order => 0,
     );
     around BUILDARGS($next: $class, @args) {
-        my $args = { @args };
+        my $args = ref $args[0] eq 'HASH' ? $args[0] : { @args };
 
         $class->$next(
             directory => delete $args->{'directory'},
@@ -70,19 +87,27 @@ using Moose
             my $plugin_name = $self->ensure_plugin($wanted_plugin);
 
             (undef, my($filename, $possible_hash)) = split /\h+/ => $content, 3;
-            my $node_settings = $self->eval_to_hashref($possible_hash, $filename);
+            chomp $filename;
+            my $node_settings = defined $possible_hash && $possible_hash =~ m{\{.*\}} ? $self->eval_to_hashref($possible_hash, $filename) : {};
 
-            my $stenciller = Stenciller->new(filepath => path($self->directory)->child($filename));
-            carp sprintf '! no stencils in %s/%s - skipping', $self->directory, $filename and return '' if !$stenciller->has_stencils;
+            my $stenciller = $self->get_stenciller_for_filename($filename);
 
-            $node->content($self->make_output($stenciller, $plugin_name, $node_settings));
+            if(!Stenciller->check($stenciller)) {
+                $stenciller = Stenciller->new(filepath => path($self->directory)->child($filename));
+                carp sprintf '! no stencils in %s/%s - skipping', $self->directory, $filename and return '' if !$stenciller->has_stencils;
+
+                $self->set_stenciller_for_filename($filename => $stenciller);
+            }
+
+            my $transformed_content = $stenciller->transform(plugin_name => $plugin_name,
+                                                             constructor_args => $self->settings,
+                                                             transform_args => $node_settings
+                                                            );
+            $transformed_content =~ s{[\v\h]+$}{};
+            $node->content($transformed_content);
+
         }
     }
-
-    method make_output($stenciller, $plugin_name, $node_settings) {
-        return $stenciller->transform($plugin_name);
-    }
-
     method ensure_plugin(Str $plugin_name) {
         return $self->get_plugin($plugin_name) if $self->get_plugin($plugin_name);
 
@@ -98,3 +123,83 @@ using Moose
 }
 
 1;
+
+=pod
+
+=encoding utf-8
+
+:splint classname Stenciller
+
+=head1 SYNOPSIS
+
+    # in weaver.ini
+    [-Transformer / Stenciller]
+    transformer = Stenciller
+    directory = path/to
+
+=head1 DESCRIPTION
+
+This transformer uses a special command in pod files to inject content from elsewhere via a L<Stenciller> transformer plugin.
+
+=head2 Example
+
+1. Start with the C<weaver.ini> from the L</"synopsis">.
+
+2. Add a textfile, in C<path/to/file-with-stencils.stencil>:
+
+    == stencil { } ==
+
+    Header text
+
+    --input--
+
+        Input text
+
+    --end input--
+
+    Between text
+
+    --output--
+
+        Output text
+
+    --end output--
+
+    Footer text
+
+3. Add a Perl module:
+
+    package A::Test::Module;
+
+    1;
+
+    __END__
+
+    =pod
+
+    =head1 NAME
+
+    =head1 DESCRIPTION
+
+    :stenciller ToUnparsedText file-with-stencils.stencil
+
+The last line in the Perl module will cause the textfile to be parsed with L<Stenciller>, and then transformed using the L<Stenciller::Plugin::ToUnparsedText> plugin.
+
+It would be rendered like this (between I<begin> and I<end>):
+
+I<begin>
+
+Header text
+
+    Input text
+
+Between text
+
+    Output text
+
+Footer text
+
+I<end>
+
+
+=cut
