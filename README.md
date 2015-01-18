@@ -4,7 +4,7 @@ Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transfo
 
 # VERSION
 
-Version 0.0001, released 2015-01-17.
+Version 0.0001, released 2015-01-18.
 
 # SYNOPSIS
 
@@ -77,13 +77,19 @@ Footer text
 
 _end_
 
+# SEE ALSO
+
+- [Stenciller](https://metacpan.org/pod/Stenciller)
+- [Stenciller::Plugin::ToUnparsedText](https://metacpan.org/pod/Stenciller::Plugin::ToUnparsedText)
+- [Pod::Weaver](https://metacpan.org/pod/Pod::Weaver)
+
 # SOURCE
 
 [https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller](https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller)
 
 # HOMEPAGE
 
-[https://metacpan.org/release/Pod-Weaver-Plugin-Stenciller-FromUnparsedText](https://metacpan.org/release/Pod-Weaver-Plugin-Stenciller-FromUnparsedText)
+[https://metacpan.org/release/Pod-Elemental-Transformer-Stenciller](https://metacpan.org/release/Pod-Elemental-Transformer-Stenciller)
 
 # AUTHOR
 
