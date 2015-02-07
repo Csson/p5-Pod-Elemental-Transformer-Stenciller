@@ -4,7 +4,7 @@
       "Erik Carlsson <info@code301.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.029, CPAN::Meta::Converter version 2.143240",
+   "generated_by" : "Dist::Zilla version 5.031, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -20,8 +20,7 @@
          "inc",
          "share",
          "eg",
-         "examples",
-         "t/corpus"
+         "examples"
       ]
    },
    "prereqs" : {
@@ -40,8 +39,7 @@
             "Moops" : "0.034",
             "Moose" : "2.0000",
             "Pod::Elemental::Transformer" : "0",
-            "Stenciller" : "0.1202",
-            "Syntax::Feature::Qs" : "0",
+            "Stenciller" : "0.1206",
             "perl" : "5.014000"
          }
       },

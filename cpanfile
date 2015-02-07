@@ -1,10 +1,11 @@
 requires 'perl', '5.014000';
 
-requires 'Syntax::Feature::Qs';
+requires 'Carp';
+requires 'Module::Loader';
 requires 'Moose', '2.0000';
 requires 'Moops', '0.034';
 requires 'Pod::Elemental::Transformer';
-requires 'Stenciller', '0.1202';
+requires 'Stenciller', '0.1206';
 
 on test => sub {
     requires 'Test::More', '0.96';
