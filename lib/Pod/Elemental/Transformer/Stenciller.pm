@@ -19,7 +19,7 @@ using Moose
         isa => Dir,
         coerce => 1,
         required => 1,
-        documentation => 'Point to where the stencil files are.'
+        documentation => 'Path to directory where the stencil files are.'
     );
     has settings => (
         isa => HashRef,
@@ -93,7 +93,7 @@ using Moose
             my $stenciller = $self->get_stenciller_for_filename($filename);
 
             if(!Stenciller->check($stenciller)) {
-                $stenciller = Stenciller->new(filepath => path($self->directory)->child($filename));
+                $stenciller = Stenciller::->new(filepath => path($self->directory)->child($filename));
                 carp sprintf '! no stencils in %s/%s - skipping', $self->directory, $filename and return '' if !$stenciller->has_stencils;
 
                 $self->set_stenciller_for_filename($filename => $stenciller);
@@ -126,8 +126,6 @@ using Moose
 
 =pod
 
-=encoding utf-8
-
 :splint classname Stenciller
 
 =head1 SYNOPSIS
@@ -135,7 +133,7 @@ using Moose
     # in weaver.ini
     [-Transformer / Stenciller]
     transformer = Stenciller
-    directory = path/to
+    directory = path/to/stencildir
 
 =head1 DESCRIPTION
 
@@ -145,7 +143,7 @@ This transformer uses a special command in pod files to inject content from else
 
 1. Start with the C<weaver.ini> from the L</"synopsis">.
 
-2. Add a textfile, in C<path/to/file-with-stencils.stencil>:
+2. Add a textfile, in C<path/to/stencildir/file-with-stencils.stencil>:
 
     == stencil { } ==
 
@@ -200,7 +198,6 @@ Between text
 Footer text
 
 I<end>
-
 
 =cut
 
