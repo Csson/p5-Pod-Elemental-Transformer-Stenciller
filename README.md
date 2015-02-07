@@ -4,7 +4,7 @@ Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transfo
 
 # VERSION
 
-Version 0.0001, released 2015-02-07.
+Version 0.0101, released 2015-02-07.
 
 # SYNOPSIS
 

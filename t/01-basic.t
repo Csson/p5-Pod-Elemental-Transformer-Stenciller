@@ -21,7 +21,7 @@ eq_or_diff $doc->as_pod_string, result(), 'correct';
 done_testing;
 
 sub result {
-	return q{=pod
+    return q{=pod
 
 =cut
 package Test::For::StencillerFromUnparsedText;
