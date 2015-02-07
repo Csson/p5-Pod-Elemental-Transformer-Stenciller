@@ -4,14 +4,14 @@ Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transfo
 
 # VERSION
 
-Version 0.0001, released 2015-01-18.
+Version 0.0001, released 2015-02-07.
 
 # SYNOPSIS
 
     # in weaver.ini
     [-Transformer / Stenciller]
     transformer = Stenciller
-    directory = path/to
+    directory = path/to/stencildir
 
 # DESCRIPTION
 
@@ -21,7 +21,7 @@ This transformer uses a special command in pod files to inject content from else
 
 1\. Start with the `weaver.ini` from the ["synopsis"](#synopsis).
 
-2\. Add a textfile, in `path/to/file-with-stencils.stencil`:
+2\. Add a textfile, in `path/to/stencildir/file-with-stencils.stencil`:
 
     == stencil { } ==
 
