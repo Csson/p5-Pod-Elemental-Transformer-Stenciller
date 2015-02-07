@@ -18,9 +18,6 @@ $pod5->transform_node($doc);
 $stenciller->transform_node($doc);
 eq_or_diff $doc->as_pod_string, result(), 'correct';
 
-
-
-
 done_testing;
 
 sub result {
@@ -58,6 +55,16 @@ in a row
     expecting this
 
 A text after output
+
+Header stencil 3
+
+    Input stencil 3
+
+Between stencil 3
+
+    Output stencil 3
+
+After stencil 3
 
 =cut
 };
