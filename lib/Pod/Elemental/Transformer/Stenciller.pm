@@ -101,7 +101,7 @@ using Moose
 
             my $transformed_content = $stenciller->transform(plugin_name => $plugin_name,
                                                              constructor_args => $self->settings,
-                                                             transform_args => $node_settings
+                                                             transform_args => { %$node_settings, require_in_extra => { key => 'to_pod', value => 1, default => 1 } },
                                                             );
             $transformed_content =~ s{[\v\h]+$}{};
             $node->content($transformed_content);
@@ -125,8 +125,6 @@ using Moose
 1;
 
 =pod
-
-:splint classname Stenciller
 
 =head1 SYNOPSIS
 
