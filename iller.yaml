@@ -1,0 +1,21 @@
+---
++doctype: dist
+name: Pod-Elemental-Transformer-Stenciller
+
++prereqs:
+  runtime:
+    requires:
+      - perl: 5.020000
+      - Stenciller: 0.1212
+
++plugins:
+ - +config: Author::CSSON
+
+---
++doctype: weaver
+
++plugins:
+ - +config: Author::CSSON
+
+ - +remove_plugin: Splint
+
