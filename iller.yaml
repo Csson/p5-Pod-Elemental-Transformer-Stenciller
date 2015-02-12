@@ -5,8 +5,20 @@ name: Pod-Elemental-Transformer-Stenciller
 +prereqs:
   runtime:
     requires:
-      - perl: 5.020000
+      - perl: 5.014000
       - Stenciller: 0.1212
+      - Carp
+      - Module::Loader
+      - Moose: 2.0000
+      - Moops: 0.034
+      - Pod::Elemental::Transformer
+
+  test:
+    requires:
+      - Test::Differences
+      - Pod::Elemental
+      - Pod::Elemental::Transformer::Pod5
+
 
 +plugins:
  - +config: Author::CSSON
@@ -18,4 +30,3 @@ name: Pod-Elemental-Transformer-Stenciller
  - +config: Author::CSSON
 
  - +remove_plugin: Splint
-
