@@ -45,7 +45,7 @@ Between stencil 2
 
 --end output--
 
-== stencil { example => 0 } ==
+== stencil ==
 
 Header stencil 3
 
@@ -64,3 +64,44 @@ Between stencil 3
 --end output--
 
 After stencil 3
+
+
+== stencil { to_pod => 0 } ==
+
+Header stencil 4
+
+--input--
+
+    Input stencil 4
+
+--end input--
+
+Between stencil 4
+
+--output--
+
+    Output stencil 4
+
+--end output--
+
+After stencil 4
+
+== stencil { to_pod => 1 } ==
+
+Header stencil 5
+
+--input--
+
+    Input stencil 5
+
+--end input--
+
+Between stencil 5
+
+--output--
+
+    Output stencil 5
+
+--end output--
+
+After stencil 5

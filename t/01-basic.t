@@ -16,7 +16,7 @@ my $stenciller = Pod::Elemental::Transformer::Stenciller->new(directory => 't/co
 my $doc = Pod::Elemental->read_file('t/corpus/lib/Test/For/StencillerFromUnparsedText.pm');
 $pod5->transform_node($doc);
 $stenciller->transform_node($doc);
-eq_or_diff $doc->as_pod_string, result(), 'correct';
+eq_or_diff $doc->as_pod_string, result(), 'Correct';
 
 done_testing;
 
@@ -65,6 +65,16 @@ Between stencil 3
     Output stencil 3
 
 After stencil 3
+
+Header stencil 5
+
+    Input stencil 5
+
+Between stencil 5
+
+    Output stencil 5
+
+After stencil 5
 
 =cut
 };
