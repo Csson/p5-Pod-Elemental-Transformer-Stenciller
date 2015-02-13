@@ -28,5 +28,3 @@ name: Pod-Elemental-Transformer-Stenciller
 
 +plugins:
  - +config: Author::CSSON
-
- - +remove_plugin: Splint
