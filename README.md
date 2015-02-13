@@ -4,7 +4,7 @@ Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transfo
 
 # VERSION
 
-Version 0.0101, released 2015-02-07.
+Version 0.0101, released 2015-02-13.
 
 # SYNOPSIS
 
@@ -76,6 +76,24 @@ Between text
 Footer text
 
 _end_
+
+## Pod hash
+
+It is possible to filter stencils by index with an optional hash in the module:
+
+    :stenciller ToUnparsedText 1-test.stencil { stencils => [0, 2..4] }
+
+This will only include the stencils with index 0, 2, 3 and 4 from `1-test.stencil`.
+
+## Stencil hash
+
+This module checks for the `to_pod` key in the stencil hash. If it is true (or doesn't exist) it is included in the transformation.
+
+However, any stencil excluded by the ["Pod hash"](#pod-hash) is already disregarded. It is probably least confusing to choose one of these places to do all filtering.
+
+# ATTRIBUTES
+
+## directory
 
 # SEE ALSO
 
