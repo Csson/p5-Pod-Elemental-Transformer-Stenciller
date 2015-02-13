@@ -25,14 +25,14 @@ using Moose
         isa => HashRef,
         traits => ['Hash'],
         default => sub { {} },
-        documentation_default => '{ }',
-        documentation_order => 0,
-        documentation => 'If a plugin takes more attributes..',
         handles => {
             get_setting => 'get',
             set_setting => 'set',
             all_settings => 'elements',
         },
+        documentation_default => '{ }',
+        documentation_order => 0,
+        documentation => 'If a plugin takes more attributes..',
     );
     has plugins => (
         isa => HashRef,
@@ -45,11 +45,13 @@ using Moose
             get_plugin => 'get',
             set_plugin => 'set',
         },
+        documentation_order => 0,
     );
     has stencillers => (
         is => 'ro',
         isa => HashRef,
         traits => ['Hash'],
+        init_arg => undef,
         handles => {
             get_stenciller_for_filename => 'get',
             set_stenciller_for_filename => 'set',
@@ -126,6 +128,8 @@ using Moose
 
 =pod
 
+:splint classname Pod::Elemental::Transformer::Stenciller
+
 =head1 SYNOPSIS
 
     # in weaver.ini
@@ -197,7 +201,23 @@ Footer text
 
 I<end>
 
-=cut
+=head2 Pod hash
+
+It is possible to filter stencils by index with an optional hash in the module:
+
+    :stenciller ToUnparsedText 1-test.stencil { stencils => [0, 2..4] }
+
+This will only include the stencils with index 0, 2, 3 and 4 from C<1-test.stencil>.
+
+=head2 Stencil hash
+
+This module checks for the C<to_pod> key in the stencil hash. If it is true (or doesn't exist) it is included in the transformation.
+
+However, any stencil excluded by the L</"Pod hash"> is already disregarded. It is probably least confusing to choose one of these places to do all filtering.
+
+=head1 ATTRIBUTES
+
+:splint attributes
 
 =head1 SEE ALSO
 
@@ -205,3 +225,5 @@ I<end>
 * L<Stenciller>
 * L<Stenciller::Plugin::ToUnparsedText>
 * L<Pod::Weaver>
+
+=cut
