@@ -11,3 +11,5 @@ __END__
 =head1 DESCRIPTION
 
 :stenciller ToUnparsedText 1-test.stencil { stencils => [0, 2..4] }
+
+:stenciller ToHtmlPreBlock 1-test.stencil { stencils => [5] }

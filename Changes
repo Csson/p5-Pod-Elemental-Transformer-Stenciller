@@ -1,4 +1,4 @@
-Revision history for Pod-Weaver-Plugin-Stenciller-FromUnparsedText
+Revision history for Pod-Elemental-Transformer-Stenciller
 
 {{$NEXT}}
  [API Changes]
@@ -6,6 +6,7 @@ Revision history for Pod-Weaver-Plugin-Stenciller-FromUnparsedText
  [Bug Fixes]
 
  [Documentation]
+ - Minor documentation improvements
 
  [Enhancements]
 
@@ -13,7 +14,26 @@ Revision history for Pod-Weaver-Plugin-Stenciller-FromUnparsedText
 
  [New Features]
 
+ [Requirements]
+ - Bump Stenciller requirement to 0.1300.
+
  [Revision]
+
+ [Testing]
+
+0.0101 2015-02-13T01:04:10Z CET
+ [Documentation]
+ - Added documentation regarding the option hashes in pod and stencil.
+ - Corrected package name in Changes
+
+ [Enhancements]
+ - Added check for 'to_pod' key in stencil hash.
+
+ [Meta]
+ - Removed cpanfile (now prereqs are set in dist.ini).
+
+ [Requirements]
+ - Bump Stenciller prereq to 0.1212.
 
 0.0100 2015-02-07T15:45:56Z CET
  - Initial release

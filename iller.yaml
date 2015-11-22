@@ -1,8 +1,10 @@
 ---
-+doctype: dist
-name: Pod-Elemental-Transformer-Stenciller
+doctype: dist
 
-+prereqs:
+header:
+  name: Pod-Elemental-Transformer-Stenciller
+
+prereqs:
   runtime:
     requires:
       - perl: 5.014000
@@ -20,11 +22,12 @@ name: Pod-Elemental-Transformer-Stenciller
       - Pod::Elemental::Transformer::Pod5
 
 
-+plugins:
+plugins:
  - +config: Author::CSSON
 
 ---
-+doctype: weaver
+doctype: weaver
 
-+plugins:
+plugins:
  - +config: Author::CSSON
+   splint: 1

@@ -147,7 +147,7 @@ This transformer uses a special command in pod files to inject content from else
 
 2. Add a textfile, in C<path/to/stencildir/file-with-stencils.stencil>:
 
-    == stencil { } ==
+    == stencil { to_pod => 1 } ==
 
     Header text
 
@@ -183,37 +183,26 @@ This transformer uses a special command in pod files to inject content from else
 
     :stenciller ToUnparsedText file-with-stencils.stencil
 
-The last line in the Perl module will cause the textfile to be parsed with L<Stenciller>, and then transformed using the L<Stenciller::Plugin::ToUnparsedText> plugin.
+The last line in the Perl module will result in the following:
 
-It would be rendered like this (between I<begin> and I<end>):
-
-I<begin>
-
-Header text
-
-    Input text
-
-Between text
-
-    Output text
-
-Footer text
-
-I<end>
+=for :list
+* The textfile is parsed with L<Stenciller>
+* The textfile is then transformed using the L<Stenciller::Plugin::ToUnparsedText> plugin.
+* The ':stenciller ...' line in the pod is replaced with the transformed content.
 
 =head2 Pod hash
 
-It is possible to filter stencils by index with an optional hash in the module:
+It is possible to filter stencils by index with an optional hash in the pod:
 
     :stenciller ToUnparsedText 1-test.stencil { stencils => [0, 2..4] }
 
-This will only include the stencils with index 0, 2, 3 and 4 from C<1-test.stencil>.
+This will only include the stencils with index 0, 2, 3 and 4 from C<file-with-stencils.stencil>.
 
 =head2 Stencil hash
 
-This module checks for the C<to_pod> key in the stencil hash. If it is true (or doesn't exist) it is included in the transformation.
+This module checks for the C<to_pod> key in the stencil hash. If it has a true value (or doesn't exist) it is included in the transformation.
 
-However, any stencil excluded by the L</"Pod hash"> is already disregarded. It is probably least confusing to choose one of these places to do all filtering.
+However, any stencil excluded by the L</"Pod hash"> is already disregarded. It is probably least confusing to choose B<one> of these places to do all filtering.
 
 =head1 ATTRIBUTES
 

@@ -76,6 +76,16 @@ Between stencil 5
 
 After stencil 5
 
+
+
+Intro text
+goes  here
+
+
+<p>html stencil</p>
+<pre>&lt;%= badge &#39;3&#39; %&gt;</pre>
+<pre>&lt;span class=&quot;badge&quot;&gt;3&lt;/span&gt;&lt;/a&gt;</pre>
+
 =cut
 };
 }

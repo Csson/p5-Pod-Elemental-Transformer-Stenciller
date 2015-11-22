@@ -105,3 +105,15 @@ Between stencil 5
 --end output--
 
 After stencil 5
+
+
+== stencil ==
+
+html stencil
+
+--input--
+    <%= badge '3' %>
+--end input--
+--output--
+    <span class="badge">3</span></a>
+--end output--

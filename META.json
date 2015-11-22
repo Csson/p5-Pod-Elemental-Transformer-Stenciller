@@ -26,7 +26,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.039"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "develop" : {
@@ -43,6 +43,7 @@
             "Dist::Zilla::Plugin::Git::Tag" : "0",
             "Dist::Zilla::Plugin::GithubMeta" : "0",
             "Dist::Zilla::Plugin::License" : "0",
+            "Dist::Zilla::Plugin::MakeMaker" : "0",
             "Dist::Zilla::Plugin::Manifest" : "0",
             "Dist::Zilla::Plugin::ManifestSkip" : "0",
             "Dist::Zilla::Plugin::MetaJSON" : "0",
@@ -50,7 +51,6 @@
             "Dist::Zilla::Plugin::MetaProvides::Class" : "0",
             "Dist::Zilla::Plugin::MetaProvides::Package" : "0",
             "Dist::Zilla::Plugin::MetaYAML" : "0",
-            "Dist::Zilla::Plugin::ModuleBuildTiny" : "0",
             "Dist::Zilla::Plugin::NextRelease" : "0",
             "Dist::Zilla::Plugin::NextVersion::Semantic" : "0",
             "Dist::Zilla::Plugin::OurPkgVersion" : "0",
@@ -65,6 +65,7 @@
             "Dist::Zilla::Plugin::ReversionOnRelease" : "0",
             "Dist::Zilla::Plugin::RunExtraTests" : "0",
             "Dist::Zilla::Plugin::ShareDir" : "0",
+            "Dist::Zilla::Plugin::Test::ReportPrereqs" : "0",
             "Dist::Zilla::Plugin::TestRelease" : "0",
             "Dist::Zilla::Plugin::UploadToCPAN" : "0",
             "Pod::Elemental::Transformer::List" : "0",
@@ -73,6 +74,7 @@
             "Pod::Weaver::Plugin::Transformer" : "0",
             "Pod::Weaver::PluginBundle::CorePrep" : "0",
             "Pod::Weaver::Section::Authors" : "0",
+            "Pod::Weaver::Section::Badges" : "0",
             "Pod::Weaver::Section::Collect" : "0",
             "Pod::Weaver::Section::Generic" : "0",
             "Pod::Weaver::Section::Homepage::DefaultCPAN" : "0",
@@ -98,7 +100,12 @@
          }
       },
       "test" : {
+         "recommends" : {
+            "CPAN::Meta" : "2.120900"
+         },
          "requires" : {
+            "ExtUtils::MakeMaker" : "0",
+            "File::Spec" : "0",
             "Pod::Elemental" : "0",
             "Pod::Elemental::Transformer::Pod5" : "0",
             "Test::Differences" : "0",
@@ -109,7 +116,7 @@
    "provides" : {
       "Pod::Elemental::Transformer::Stenciller" : {
          "file" : "lib/Pod/Elemental/Transformer/Stenciller.pm",
-         "version" : "0.0101"
+         "version" : "0.0102"
       }
    },
    "release_status" : "stable",
@@ -124,6 +131,6 @@
          "web" : "https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller"
       }
    },
-   "version" : "0.0101"
+   "version" : "0.0102"
 }
 
