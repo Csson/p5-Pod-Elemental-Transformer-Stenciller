@@ -11,6 +11,7 @@ Revision history for Pod-Elemental-Transformer-Stenciller
  [Enhancements]
 
  [Meta]
+ - Added .travis.yml.
 
  [New Features]
 
