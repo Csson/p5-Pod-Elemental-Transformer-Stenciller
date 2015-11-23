@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
     "Moops" => "0.034",
     "Moose" => "2.0000",
     "Pod::Elemental::Transformer" => 0,
-    "Stenciller" => "0.1212"
+    "Stenciller" => "0.1300"
   },
   "TEST_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0,
@@ -53,7 +53,7 @@ my %FallbackPrereqs = (
   "Pod::Elemental" => 0,
   "Pod::Elemental::Transformer" => 0,
   "Pod::Elemental::Transformer::Pod5" => 0,
-  "Stenciller" => "0.1212",
+  "Stenciller" => "0.1300",
   "Test::Differences" => 0,
   "Test::More" => "0.96"
 );

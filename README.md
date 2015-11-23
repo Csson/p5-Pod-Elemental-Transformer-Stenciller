@@ -2,11 +2,11 @@
 
 Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transformed with Stenciller
 
-![Requires Perl 5.14+](https://img.shields.io/badge/perl-5.14+-brightgreen.svg) [![Travis status](https://api.travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller.svg?branch=master)](https://travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller)
+![Requires Perl 5.14](https://img.shields.io/badge/perl-5.14-brightgreen.svg) [![Travis status](https://api.travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller.svg?branch=master)](https://travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller)
 
 # VERSION
 
-Version 0.0102, released 2015-11-22.
+Version 0.0102, released 2015-11-23.
 
 # SYNOPSIS
 
