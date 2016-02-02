@@ -1,128 +1,143 @@
-use Stenciller::Standard;
+use 5.10.1;
 use strict;
 use warnings;
 
+package Pod::Elemental::Transformer::Stenciller;
+
 # VERSION:
-# PODCLASSNAME
 # ABSTRACT: Injects content from textfiles transformed with Stenciller
+
+use Moose;
+use MooseX::AttributeDocumented;
+with qw/Pod::Elemental::Transformer Stenciller::Utils/;
+
+use namespace::autoclean;
+use Types::Standard -types;
+use Types::Path::Tiny qw/Dir/;
+use Types::Stenciller qw/Stenciller/;
+use Carp qw/carp croak/;
+use Module::Load qw/load/;
+use Path::Tiny;
 use Stenciller;
 
-class Pod::Elemental::Transformer::Stenciller
-using Moose
- with Pod::Elemental::Transformer, Stenciller::Utils :ro {
+has directory => (
+    is => 'ro',
+    isa => Dir,
+    coerce => 1,
+    required => 1,
+    documentation => 'Path to directory where the stencil files are.'
+);
+has settings => (
+    is => 'ro',
+    isa => HashRef,
+    traits => ['Hash'],
+    default => sub { +{} },
+    handles => {
+        get_setting => 'get',
+        set_setting => 'set',
+        all_settings => 'elements',
+    },
+    documentation_default => '{ }',
+    documentation_order => 0,
+    documentation => 'If a plugin takes more attributes..',
+);
+has plugins => (
+    is => 'ro',
+    isa => HashRef,
+    default => sub { +{} },
+    documentation_default => '{ }',
+    documentation_order => 0,
+    init_arg => undef,
+    traits => ['Hash'],
+    handles => {
+        get_plugin => 'get',
+        set_plugin => 'set',
+    },
+    documentation_order => 0,
+);
+has stencillers => (
+    is => 'ro',
+    isa => HashRef,
+    traits => ['Hash'],
+    init_arg => undef,
+    handles => {
+        get_stenciller_for_filename => 'get',
+        set_stenciller_for_filename => 'set',
+    },
+    documentation_order => 0,
+);
 
-    use Carp 'croak';
-    use Module::Loader;
+around BUILDARGS => sub {
+    my $next = shift;
+    my $class = shift;
+    my @args = @_;
 
-    has directory => (
-        is => 'ro',
-        isa => Dir,
-        coerce => 1,
-        required => 1,
-        documentation => 'Path to directory where the stencil files are.'
+    my $args = ref $args[0] eq 'HASH' ? $args[0] : { @args };
+
+    $class->$next(
+        directory => delete $args->{'directory'},
+        settings  => $args
     );
-    has settings => (
-        isa => HashRef,
-        traits => ['Hash'],
-        default => sub { {} },
-        handles => {
-            get_setting => 'get',
-            set_setting => 'set',
-            all_settings => 'elements',
-        },
-        documentation_default => '{ }',
-        documentation_order => 0,
-        documentation => 'If a plugin takes more attributes..',
-    );
-    has plugins => (
-        isa => HashRef,
-        default => sub { {} },
-        documentation_default => '{ }',
-        documentation_order => 0,
-        init_arg => undef,
-        traits => ['Hash'],
-        handles => {
-            get_plugin => 'get',
-            set_plugin => 'set',
-        },
-        documentation_order => 0,
-    );
-    has stencillers => (
-        is => 'ro',
-        isa => HashRef,
-        traits => ['Hash'],
-        init_arg => undef,
-        handles => {
-            get_stenciller_for_filename => 'get',
-            set_stenciller_for_filename => 'set',
-        },
-        documentation_order => 0,
-    );
-    has loader => (
-        is => 'ro',
-        isa => Object,
-        init_arg => undef,
-        default => sub { Module::Loader->new },
-        documentation_order => 0,
-    );
-    around BUILDARGS($next: $class, @args) {
-        my $args = ref $args[0] eq 'HASH' ? $args[0] : { @args };
+};
 
-        $class->$next(
-            directory => delete $args->{'directory'},
-            settings  => $args
-        );
-    }
+sub transform_node {
+    my $self = shift;
+    my $main_node = shift;
 
-    method transform_node($main_node) {
+    NODE:
+    foreach my $node (@{ $main_node->children }) {
+        my $content = $node->content;
+        my $start = substr($content, 0, 11, '');
+        next NODE if $start ne ':stenciller';
 
-        NODE:
-        foreach my $node (@{ $main_node->children }) {
-            my $content = $node->content;
-            my $start = substr($content, 0, 11, '');
-            next NODE if $start ne ':stenciller';
+        $content =~ s{^\h+}{};             # remove leading whitespace
+        next if $content !~ m{([^\h\v]+)}; # the next sequence of non-space is the wanted plugin name
 
-            $content =~ s{^\h+}{};             # remove leading whitespace
-            next if $content !~ m{([^\h\v]+)}; # the next sequence of non-space is the wanted plugin name
+        my $wanted_plugin = $1;
+        my $plugin_name = $self->ensure_plugin($wanted_plugin);
 
-            my $wanted_plugin = $1;
-            my $plugin_name = $self->ensure_plugin($wanted_plugin);
+        (undef, my($filename, $possible_hash)) = split /\h+/ => $content, 3;
+        chomp $filename;
+        my $node_settings = defined $possible_hash && $possible_hash =~ m{\{.*\}} ? $self->eval_to_hashref($possible_hash, $filename) : {};
 
-            (undef, my($filename, $possible_hash)) = split /\h+/ => $content, 3;
-            chomp $filename;
-            my $node_settings = defined $possible_hash && $possible_hash =~ m{\{.*\}} ? $self->eval_to_hashref($possible_hash, $filename) : {};
+        my $stenciller = $self->get_stenciller_for_filename($filename);
 
-            my $stenciller = $self->get_stenciller_for_filename($filename);
-
-            if(!Stenciller->check($stenciller)) {
-                $stenciller = Stenciller::->new(filepath => path($self->directory)->child($filename));
-                carp sprintf '! no stencils in %s/%s - skipping', $self->directory, $filename and return '' if !$stenciller->has_stencils;
-
-                $self->set_stenciller_for_filename($filename => $stenciller);
+        if(!Stenciller->check($stenciller)) {
+            $stenciller = Stenciller::->new(filepath => path($self->directory)->child($filename));
+            if(!$stenciller->has_stencils) {
+                carp sprintf '! no stencils in %s/%s - skipping', $self->directory, $filename;
+                return;
             }
 
-            my $transformed_content = $stenciller->transform(plugin_name => $plugin_name,
-                                                             constructor_args => $self->settings,
-                                                             transform_args => { %$node_settings, require_in_extra => { key => 'to_pod', value => 1, default => 1 } },
-                                                            );
-            $transformed_content =~ s{[\v\h]+$}{};
-            $node->content($transformed_content);
-
+            $self->set_stenciller_for_filename($filename => $stenciller);
         }
-    }
-    method ensure_plugin(Str $plugin_name) {
-        return $self->get_plugin($plugin_name) if $self->get_plugin($plugin_name);
 
-        my $plugin_class = sprintf 'Stenciller::Plugin::%s', $plugin_name;
-        $self->loader->load($plugin_class);
+        my $transformed_content = $stenciller->transform(plugin_name => $plugin_name,
+                                                         constructor_args => $self->settings,
+                                                         transform_args => { %$node_settings, require_in_extra => { key => 'to_pod', value => 1, default => 1 } },
+                                                        );
+        $transformed_content =~ s{[\v\h]+$}{};
+        $node->content($transformed_content);
 
-        if(!$plugin_class->does('Stenciller::Transformer')) {
-            croak("[$plugin_name] doesn't do the Stenciller::Transformer role. Quitting.");
-        }
-        $self->set_plugin($plugin_name => $plugin_name);
-        return $plugin_name;
     }
 }
+sub ensure_plugin {
+    my $self = shift;
+    my $plugin_name = shift;
+
+    return $self->get_plugin($plugin_name) if $self->get_plugin($plugin_name);
+
+    my $plugin_class = sprintf 'Stenciller::Plugin::%s', $plugin_name;
+    load($plugin_class);
+
+    if(!$plugin_class->does('Stenciller::Transformer')) {
+        croak("[$plugin_name] doesn't do the Stenciller::Transformer role. Quitting.");
+    }
+    $self->set_plugin($plugin_name => $plugin_name);
+    return $plugin_name;
+}
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

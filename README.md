@@ -2,11 +2,11 @@
 
 Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transformed with Stenciller
 
-![Requires Perl 5.14](https://img.shields.io/badge/perl-5.14-brightgreen.svg) [![Travis status](https://api.travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller.svg?branch=master)](https://travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller)
+![Requires Perl 5.14+](https://img.shields.io/badge/perl-5.14+-brightgreen.svg) [![Travis status](https://api.travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller.svg?branch=master)](https://travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller) ![coverage 88.6%](https://img.shields.io/badge/coverage-88.6%-orange.svg)
 
 # VERSION
 
-Version 0.0200, released 2015-11-23.
+Version 0.0201, released 2016-02-02.
 
 # SYNOPSIS
 
@@ -85,6 +85,16 @@ However, any stencil excluded by the ["Pod hash"](#pod-hash) is already disregar
 
 ## directory
 
+<table cellpadding="0" cellspacing="0">
+<tr>
+    <td style="padding-right: 6px; padding-left: 6px; border-right: 1px solid #b8b8b8; white-space: nowrap;"><a href="https://metacpan.org/pod/Types::Path::Tiny#Dir">Dir</a></td>
+    <td style="padding-right: 6px; padding-left: 6px; border-right: 1px solid #b8b8b8; white-space: nowrap;">required</td>
+    <td style="padding-left: 6px; padding-right: 6px; white-space: nowrap;">read-only</td>
+</tr>
+</table>
+
+<p>Path to directory where the stencil files are.</p>
+
 # SEE ALSO
 
 - [Stenciller](https://metacpan.org/pod/Stenciller)
@@ -105,7 +115,7 @@ Erik Carlsson <info@code301.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Erik Carlsson.
+This software is copyright (c) 2016 by Erik Carlsson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
