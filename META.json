@@ -117,7 +117,7 @@
    "provides" : {
       "Pod::Elemental::Transformer::Stenciller" : {
          "file" : "lib/Pod/Elemental/Transformer/Stenciller.pm",
-         "version" : "0.0102"
+         "version" : "0.0200"
       }
    },
    "release_status" : "stable",
@@ -132,6 +132,6 @@
          "web" : "https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller"
       }
    },
-   "version" : "0.0102"
+   "version" : "0.0200"
 }
 
