@@ -9,17 +9,20 @@ Revision history for Pod-Elemental-Transformer-Stenciller
 
  [Enhancements]
 
- [Meta]
-
  [New Features]
 
- [Requirements]
-  - Removed Kavorka/Moops dependency, so will work on 5.10+ (once Stenciller does).
-  - No longer uses Stenciller::Standard for dependencies (but uses them directly).
+ [Other Changes]
 
- [Revision]
+ [Requirements]
 
  [Testing]
+
+0.0300 2016-02-02T15:05:04Z UTC
+ [Requirements]
+ - Removed Kavorka/Moops dependency, so will work on 5.10+ (once Stenciller
+   does).
+ - No longer uses Stenciller::Standard for dependencies (but uses them
+   directly).
 
 0.0200 2015-11-23T00:10:51Z UTC
  [Documentation]
