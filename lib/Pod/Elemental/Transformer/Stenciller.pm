@@ -6,7 +6,7 @@ package Pod::Elemental::Transformer::Stenciller;
 
 # ABSTRACT: Injects content from textfiles transformed with Stenciller
 # AUTHORITY
-our $VERSION = '0.0301';
+our $VERSION = '0.0302';
 
 use Moose;
 use MooseX::AttributeDocumented;
