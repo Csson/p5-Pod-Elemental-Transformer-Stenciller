@@ -4,8 +4,9 @@ use warnings;
 
 package Pod::Elemental::Transformer::Stenciller;
 
-# VERSION:
 # ABSTRACT: Injects content from textfiles transformed with Stenciller
+# AUTHORITY
+our $VERSION = '0.0301';
 
 use Moose;
 use MooseX::AttributeDocumented;

@@ -2,11 +2,17 @@
 
 Pod::Elemental::Transformer::Stenciller - Injects content from textfiles transformed with Stenciller
 
-![Requires Perl 5.14+](https://img.shields.io/badge/perl-5.14+-brightgreen.svg) [![Travis status](https://api.travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller.svg?branch=master)](https://travis-ci.org/Csson/p5-Pod-Elemental-Transformer-Stenciller) ![coverage 88.6%](https://img.shields.io/badge/coverage-88.6%-orange.svg)
+<div>
+    <p>
+    <img src="https://img.shields.io/badge/perl-5.14+-blue.svg" alt="Requires Perl 5.14+" />
+    <img src="https://img.shields.io/badge/coverage-88.6%25-orange.svg" alt="coverage 88.6%" />
+    <a href="https://github.com/Csson/p5-Pod-Elemental-Transformer-Stenciller/actions?query=workflow%3Amakefile-test"><img src="https://img.shields.io/github/workflow/status/Csson/p5-Pod-Elemental-Transformer-Stenciller/makefile-test" alt="Build status at Github" /></a>
+    </p>
+</div>
 
 # VERSION
 
-Version 0.0300, released 2016-02-02.
+Version 0.0301, released 2021-06-30.
 
 # SYNOPSIS
 
@@ -115,7 +121,7 @@ Erik Carlsson <info@code301.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2016 by Erik Carlsson.
+This software is copyright (c) 2021 by Erik Carlsson.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
