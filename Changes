@@ -12,6 +12,8 @@ Revision history for Pod-Elemental-Transformer-Stenciller
  [New Features]
 
  [Other Changes]
+ - Explicit $VERSION
+ - Replace Travis CI with Github Actions
 
  [Requirements]
 
